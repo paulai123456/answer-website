@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secret Answer Portal</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #10152b, #39235d);
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+.container {
+    background: #1d2340;
+    width: 100%;
+    max-width: 550px;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 40px #0005;
+}
+
+h1 {
+    color: #b99aff;
+}
+
+p {
+    color: #c9cce0;
+    line-height: 1.6;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 15px 0;
+    border: 2px solid #555c80;
+    border-radius: 10px;
+    background: #11172c;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #9870ed;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #8053df;
+}
+
+#message {
+    margin-top: 15px;
+    color: #ff8585;
+}
+
+#answers {
+    display: none;
+    text-align: left;
+    margin-top: 25px;
+    animation: appear 0.7s ease;
+}
+
+.answer-card {
+    background: #292f50;
+    padding: 15px;
+    margin: 12px 0;
+    border-radius: 12px;
+}
+
+.answer-card h3 {
+    color: #b99aff;
+}
+
+.success {
+    color: #79f5a3;
+    text-align: center;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div id="quiz">
+        <h1>🔒 Secret Answer Portal</h1>
+
+        <p>
+            If you want to see the answers,
+            please answer this first!
+        </p>
+
+        <hr>
+
+        <h3 id="questionNumber"></h3>
+        <h3 id="question"></h3>
+
+        <input
+            type="text"
+            id="userAnswer"
+            placeholder="Enter your answer..."
+        >
+
+        <button onclick="checkAnswer()">
+            SUBMIT ANSWER
+        </button>
+
+        <p id="message"></p>
+    </div>
+
+    <div id="answers">
+
+        <h1 class="success">🎉 CORRECT!</h1>
+
+        <p class="success">
+            Now you know the answers for this activity!
+            Congratulations!
+        </p>
+
+        <hr>
+
+        <h2>📚 ACTIVITY A</h2>
+
+        <div class="answer-card">
+            <h3>1. Rectangular Garden</h3>
+            Width = x<br>
+            Length = x + 6<br>
+            Area = x(x + 6)<br>
+            <b>A(x) = x² + 6x</b>
+        </div>
+
+        <div class="answer-card">
+            <h3>2. Product of Two Numbers</h3>
+            First number = x<br>
+            Second number = 24 - x<br>
+            Product = x(24 - x)<br>
+            <b>P(x) = -x² + 24x</b>
+        </div>
+
+        <h2>📊 ACTIVITY B</h2>
+
+        <div class="answer-card">
+            <h3>1. y = 3x²</h3>
+            (-2,12), (-1,3), (0,0), (1,3), (2,12)
+            <p>Opens upward.</p>
+        </div>
+
+        <div class="answer-card">
+            <h3>2. y = -2x² + 14</h3>
+            (-2,6), (-1,12), (0,14), (1,12), (2,6)
+            <p>Opens downward.</p>
+        </div>
+
+        <h2>📈 ACTIVITY C</h2>
+
+        <div class="answer-card">
+            <h3>1. y = 2(x - 3)²</h3>
+            (1,8), (2,2), (3,0), (4,2), (5,8)
+            <p>Opens upward.</p>
+        </div>
+
+        <div class="answer-card">
+            <h3>2. y = -3(x - 5)²</h3>
+            (3,-12), (4,-3), (5,0), (6,-3), (7,-12)
+            <p>Opens downward.</p>
+        </div>
+
+        <hr>
+
+        <h2 class="success">
+            THANK YOU FOR ANSWERING! 😂
+        </h2>
+
+    </div>
+
+</div>
+
+<script>
+
+// ALL QUESTIONS FROM ACTIVITIES A, B AND C
+
+const questions = [
+    {
+        question: "Activity A #1: What is the area function of a rectangle with width x and length x + 6?",
+        answers: ["A(x)=x(x+6)=x²+6x"]
+    },
+    {
+        question: "Activity A #2: What is the product function of two numbers x and 24 - x?",
+        answers: ["P(x)=-x² + 24x", "P(x)=-x^2 + 24x", "P(x)=x(24-x)", "P(x)=-x²+24x"]
+    },
+    {
+        question: "Activity B #1: What is y when x = 2 in y = 3x²?",
+        answers: ["12"]
+    },
+    {
+        question: "Activity B #2: What is the vertex of y = -2x² + 14?",
+        answers: ["(0,14)", "0,14"]
+    },
+    {
+        question: "Activity C #1: What is the vertex of y = 2(x - 3)²?",
+        answers: ["(3,0)", "3,0"]
+    },
+    {
+        question: "Activity C #2: What is the vertex of y = -3(x - 5)²?",
+        answers: ["(5,0)", "5,0"]
+    }
+];
+
+// RANDOMIZE QUESTIONS
+
+questions.sort(() => Math.random() - 0.5);
+
+let currentQuestion = 0;
+
+function showQuestion() {
+    document.getElementById("questionNumber").innerText =
+        "Question " + (currentQuestion + 1) + " of 3";
+
+    document.getElementById("question").innerText =
+        questions[currentQuestion].question;
+}
+
+// THREE RANDOM QUESTIONS PER VISITOR
+
+const selectedQuestions = questions.slice(0, 3);
+
+function checkAnswer() {
+
+    const input = document.getElementById("userAnswer")
+        .value.trim().toLowerCase();
+
+    const correct = selectedQuestions[currentQuestion]
+        .answers.some(answer =>
+            answer.toLowerCase() === input
+        );
+
+    if (correct) {
+
+        currentQuestion++;
+
+        if (currentQuestion === 3) {
+
+            document.getElementById("quiz").style.display = "none";
+            document.getElementById("answers").style.display = "block";
+
+        } else {
+
+            document.getElementById("message").style.color = "#79f5a3";
+            document.getElementById("message").innerText =
+                "Correct! Next question!";
+
+            document.getElementById("userAnswer").value = "";
+
+            showQuestion();
+        }
+
+    } else {
+
+        document.getElementById("message").style.color = "#ff8585";
+        document.getElementById("message").innerText =
+            "Incorrect! Try again 😂";
+
+    }
+}
+
+showQuestion();
+
+</script>
+
+</body>
+</html>
